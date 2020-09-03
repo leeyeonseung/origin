@@ -63,3 +63,6 @@ FROM emp;
 
 SELECT CONCAT('SELECT * FROM',CONCAT(' ',CONCAT(table_name, ';'))) as QUERY
 FROM user_tables;
+
+SELECT empno "test"
+FROM emp;
