@@ -340,3 +340,25 @@ FROM emp;
 
 SELECT ROWNUM, e;
 FROM emp e;
+
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN';
+
+
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' AND empno LIKE '78%';
+
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' OR empno LIKE '78%';
+
+
+SELECT *
+FROM emp
+WHERE job ='SALESMAN' OR (hiredate>TO_DATE('1981.06.01','yyyy,mm,dd') AND empno LIKE '78%');
+
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' OR empno BETWEEN 7800 AND 7899;
