@@ -99,3 +99,27 @@ Select /*SQL_TEST*/ * FROM emp WHERE deptno=20;
 바인드 변수를 왜 사용해야 하는가에 대한 설명
 Select /*SQL_TEST*/ * FROM emp WHERE deptno = :deptno;
 
+ISOLATION LEVEL (고립화 레벨)
+후행 트랙잭션이 선행 트랜잭션에 어떻게 영향을 미치는지를 정의한 단계
+
+LEVEL 0~3
+LEVEL 0 : READ UNCOMMITED
+         선행 트랜잭션이 커밋하지 않은 데이터도 후행 트랜잭션에서 조회된다
+         오라클에서는 공식적으로 지원하지 않는 단계
+         
+LEVEL 1 : READ COMMITTED
+        후행 트랜잭션에서 커밋한 데이터가 선행 트랜잭션에서도 조회된다.
+        오라클의 기본 고립화 레벨
+        대부분의 DBMS가 채택하는 레벨
+LEVEL 2: REPEATABLE READ (반복적 읽기)
+        트랜잭션안에서 동일한 SELECT 쿼리를 실행해도 트랜잭션의 어떤 위치에서던지 후행트랜잭션의 변경(UPDATE), 삭제(DELETE)의 영향을
+        받지않고 항상 동일한 실행결과를 조회하는 레벨
+        
+        오라클에서는 공식적으로 지원하지는 않지만 SELECT FOR UPDATE 구문을 통해 효과를 낼 수 있다.
+        후행 트랜잭션의 변경, 삭제에 대해서는 막을 수 있지만 (테이블에 기존에 존재했던 데이터에 대해) 
+        신규(INSERT)로 입력하는 데이터에 대해서는 선행 트랜잭션에 영향이 간다
+        ==>Phantom Read(귀신 읽기)
+            존재하지 않았던 데이터가 갑자기 조회되는 현상
+LEVEL 3 : SERIALIZABLE READ (직렬화 읽기)
+        후행 트랜잭션의 직업이 선행 트랜잭션에 아무런 영향을 주지 않는 단계
+        *** DBMS마다 LOCKING 메카니즘이 다르기 때문에 ISOLATION LEVEL을 함부로 수정하는 것은 위험하다.
